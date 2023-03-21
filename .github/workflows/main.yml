@@ -1,0 +1,31 @@
+# https://github.com/apache/nifi,
+# 2bd752d868a8f3e36113b078bb576cf054e945e8,
+# nifi-registry/nifi-registry-core/nifi-registry-framework,
+# org.apache.nifi.registry.security.ldap.tenants.LdapUserGroupProviderTest.testSearchGroupsWithNoNameAndUserIdentityUidAttribute
+name: Test:LdapUserGroupProviderTest.testSearchGroupsWithNoNameAndUserIdentityUidAttribute
+run-name: Known Flaky test
+on: [push]
+jobs:
+  Test_Without_Nondex_Shuffling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Test
+        run: mvn -pl nifi-registry/nifi-registry-core/nifi-registry-framework test -Dtest=org.apache.nifi.registry.security.ldap.tenants.LdapUserGroupProviderTest#testSearchGroupsWithNoNameAndUserIdentityUidAttribute
+        
+  Test_With_Nondex_Shuffling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Test
+        run: mvn -X -pl nifi-registry/nifi-registry-core/nifi-registry-framework edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=org.apache.nifi.registry.security.ldap.tenants.LdapUserGroupProviderTest#testSearchGroupsWithNoNameAndUserIdentityUidAttribute
